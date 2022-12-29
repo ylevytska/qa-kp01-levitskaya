@@ -35,22 +35,24 @@ class TestDirectory:
 
         # WHEN
         directory.delete()
+        tryToGetDirName = directory.dirName
+        print(tryToGetDirName)
 
         # THEN
-        assert directory == None
+        assert pytest.raises(Exception)
 
     def test_directory_list_elements(self):
         # GIVEN
-        directory = Directory(dirName='dir')
+        directory = Directory(dirName='dir',maxElements=10)
 
         binaryFile1 = BinaryFile(fileName="file1", content="1")
-        binaryFile1.move(directory.dirName)
+        binaryFile1.move(directory)
 
         binaryFile2 = BinaryFile(fileName="file2", content="2")
-        binaryFile2.move(directory.dirName)
+        binaryFile2.move(directory)
 
         binaryFile3 = BinaryFile(fileName="file3", content="3")
-        binaryFile3.move(directory.dirName)
+        binaryFile3.move(directory)
 
         # WHEN
         dirElements = directory.list_elements()
@@ -67,7 +69,7 @@ class TestDirectory:
         binaryFile1 = BinaryFile(fileName="file1", content="1")
 
         # WHEN
-        binaryFile1.move(directory.dirName)
+        binaryFile1.move(directory)
 
         # THEN
         assert pytest.raises(OverflowError)
@@ -78,7 +80,6 @@ class TestDirectory:
         parentDirectory = None
 
         # WHEN
-        directory.move(parentDirectory)
-
         # THEN
-        assert pytest.raises(Exception)
+        with pytest.raises(Exception):
+            directory.move(parentDirectory)

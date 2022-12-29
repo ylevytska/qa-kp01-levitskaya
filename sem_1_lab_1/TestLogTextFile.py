@@ -21,9 +21,11 @@ class TestLogTextFile:
 
         # WHEN
         logTextFile.delete()
+        tryToGetDirName = logTextFile.fileName
+        print(tryToGetDirName)
 
         # THEN
-        assert logTextFile == None
+        assert pytest.raises(Exception)
 
     def test_log_text_file_move(self):
         # GIVEN
@@ -40,11 +42,14 @@ class TestLogTextFile:
     def test_log_text_file_read(self):
         # GIVEN
         fileName = "file1"
-        expected_content = "new line"
+        newLine = "new line"
+        expected_content = "new line new line new line "
         logTextFile = LogTextFile(fileName=fileName)
 
         # WHEN
-        logTextFile.append_line(expected_content)
+        logTextFile.append_line(newLine)
+        logTextFile.append_line(newLine)
+        logTextFile.append_line(newLine)
         actual_content = logTextFile.read()
 
         # THEN
@@ -57,7 +62,6 @@ class TestLogTextFile:
         parentDirectory = None
 
         # WHEN
-        logTextFile.move(parentDirectory)
-
         # THEN
-        assert pytest.raises(Exception)
+        with pytest.raises(Exception):
+            logTextFile.move(parentDirectory)

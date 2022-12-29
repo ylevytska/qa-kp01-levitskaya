@@ -4,7 +4,7 @@ import pytest
 
 
 class TestBufferFile:
-    
+
     def test_buffer_file_creation(self):
         # GIVEN
         fileName = "file1"
@@ -23,9 +23,11 @@ class TestBufferFile:
 
         # WHEN
         bufferFile.delete()
+        tryToGetFileName = bufferFile.fileName
+        print(tryToGetFileName)
 
         # THEN
-        assert bufferFile == None
+        assert pytest.raises(Exception)
 
     def test_buffer_file_move(self):
         # GIVEN
@@ -55,14 +57,13 @@ class TestBufferFile:
         pushedElement = 1
 
         # WHEN
-        bufferFile.push(pushedElement)
-
         # THEN
-        assert pytest.raises(OverflowError)
+        with pytest.raises(OverflowError):
+            bufferFile.push(pushedElement)
 
     def test_buffer_file_consume(self):
         # GIVEN
-        bufferFile = BufferFile(fileName="file1", maxSize=0)
+        bufferFile = BufferFile(fileName="file1", maxSize=10)
         pushedElement = 1
 
         # WHEN
@@ -77,7 +78,6 @@ class TestBufferFile:
         parentDirectory = None
 
         # WHEN
-        bufferFile.move(parentDirectory)
-
         # THEN
-        assert pytest.raises(Exception)
+        with pytest.raises(Exception):
+            bufferFile.move(parentDirectory)

@@ -23,9 +23,11 @@ class TestBinaryFile:
 
         # WHEN
         binaryFile.delete()
+        tryToGetFileName = binaryFile.fileName
+        print(tryToGetFileName)
 
         # THEN
-        assert binaryFile == None
+        assert pytest.raises(Exception)
 
     def test_binary_file_move(self):
         # GIVEN
@@ -46,7 +48,7 @@ class TestBinaryFile:
 
         # WHEN
         actual_content = binaryFile.read()
-        
+
         # THEN
         assert expected_content == actual_content
 
@@ -56,7 +58,6 @@ class TestBinaryFile:
         parentDirectory = None
 
         # WHEN
-        binaryFile.move(parentDirectory)
-
         # THEN
-        assert pytest.raises(Exception)
+        with pytest.raises(Exception):
+            binaryFile.move(parentDirectory)
