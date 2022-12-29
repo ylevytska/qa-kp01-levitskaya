@@ -1,17 +1,17 @@
 class Directory:
     def __init__(self, dirName, maxElements=0, parent=None):
-        self.DIR_MAX_ELEMS = maxElements
+        self.dirMaxElem = maxElements
         self.parent = parent
-        self.name = dirName
+        self.dirName = dirName
         self.elementsCount = 0
         self.fileList = []
         return
 
-    def delete_dir(self):
+    def delete(self):
         return
 
     def list_elements(self):
         return
 
-    def move_element(self, path):
+    def move(self, path):
         return
