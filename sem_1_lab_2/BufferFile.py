@@ -5,10 +5,15 @@ class BufferFile:
         self.parent = parent
         self.content = []
         self.currentPop_Index = -1
+        self.deleted = False
 
     def delete(self):
-        del self
-        return
+        if self.deleted is False:
+            self.deleted = True
+            del self
+            return {'message': self.fileName + 'file deleted'}
+        else: 
+            return {'error': 'File is already deleted'}
 
     def move(self, path):
         if(path == None):
@@ -33,6 +38,7 @@ class BufferFile:
 
         self.content.append(elem)
         self.currentPop_Index += 1
+        return {'content': self.content}
 
     def consume(self):
         if self.currentPop_Index >= 0:

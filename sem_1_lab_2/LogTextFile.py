@@ -3,10 +3,15 @@ class LogTextFile:
         self.fileName = fileName
         self.parent = parent
         self.content = ""
+        self.deleted = False
 
     def delete(self):
-        del self
-        return
+        if self.deleted is False:
+            self.deleted = True
+            del self
+            return {'message': self.fileName +'file deleted'}
+        else: 
+            return {'error': 'File is already deleted'}
 
     def move(self, path):
         if(path == None):
